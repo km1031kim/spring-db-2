@@ -26,7 +26,7 @@ public class JpaItemRepositoryV3 implements ItemRepository {
     private final EntityManager em;
     private final JPAQueryFactory query;
 
-    public JpaItemRepositoryV3(EntityManager em) {
+    public  JpaItemRepositoryV3(EntityManager em) {
         this.em = em;
         this.query = new JPAQueryFactory(em);
     }
@@ -56,17 +56,7 @@ public class JpaItemRepositoryV3 implements ItemRepository {
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
 
-
         QItem item = QItem.item;
-        BooleanBuilder builder = new BooleanBuilder();
-
-        if (StringUtils.hasText(itemName)) {
-            builder.and(item.itemName.like("%" + itemName + "%"));
-        }
-
-        if (maxPrice != null) {
-            builder.and(item.price.loe(maxPrice));
-        }
 
         List<Item> result = query
                 .select(item)
